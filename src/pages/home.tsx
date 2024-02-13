@@ -6,7 +6,7 @@ import { useAuth } from "../hooks/useAuth";
 const Home = () => {
   const { user } = useAuth();
   console.log(user);
-  
+
   return (
     <div className="max-w-4xl mx-auto">
       <Navbar />

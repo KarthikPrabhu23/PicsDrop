@@ -11,7 +11,7 @@ function App() {
     <AuthProvider>
       <Routes>
         <Route
-          path="/"
+          path='/'
           element={
             <PrivateRoute>
               <Home />
@@ -19,7 +19,7 @@ function App() {
           }
         />
         <Route
-          path="/signup"
+          path='/signup'
           element={
             <PublicRoute>
               <Signup />

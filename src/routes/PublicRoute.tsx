@@ -7,6 +7,7 @@ interface PublicRouteProps {
 }
 const PublicRoute: FC<PublicRouteProps> = ({ children }) => {
   const { user } = useAuth();
+// const user = 'John'
   console.log(user);
 
   if (user) {
