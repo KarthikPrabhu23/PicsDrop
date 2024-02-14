@@ -14,9 +14,10 @@ const useStorage = () => {
     }
 
     const fileId = uuidv4();
-    const formatFile = file.type.split('/')[1];
-    const storageRef = ref(storage, "images/${fileId}.${formatFile}");
-    console.log("images/${fileId}.${formatFile}");
+    const formatFile = file.type.split("/")[1];
+
+    const storageRef = ref(storage, `images/${fileId}.${formatFile}`);
+    console.log(`images/${fileId}.${formatFile}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
