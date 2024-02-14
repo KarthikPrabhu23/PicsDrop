@@ -1,11 +1,17 @@
-import { collection, onSnapshot, orderBy, query, setDoc } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase/config";
 
 type Image = {
   createAt: Date;
   userEmail: string;
-  imageUrl: string;
+  ImageURL: string;
 };
 
 const useFirestore = (collectionName: string) => {
@@ -13,12 +19,10 @@ const useFirestore = (collectionName: string) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-
-    let unsubscribe: () => void
+    let unsubscribe: () => void;
 
     const getData = async () => {
       try {
-
         const q = query(
           collection(db, collectionName),
           orderBy("createAt", "desc")
@@ -26,11 +30,11 @@ const useFirestore = (collectionName: string) => {
         unsubscribe = onSnapshot(q, (querySnapshot) => {
           const images: Image[] = [];
           querySnapshot.forEach((doc) => {
-            const imageUrl = doc.data().imageUrl;
+            const ImageURL = doc.data().ImageURL;
             const createAt = doc.data().createAt.toDate();
             const userEmail = doc.data().userEmail;
 
-            images.push({imageUrl, createAt, userEmail})
+            images.push({ ImageURL, createAt, userEmail });
           });
           console.log("Current images in CA: ", images.join(", "));
 

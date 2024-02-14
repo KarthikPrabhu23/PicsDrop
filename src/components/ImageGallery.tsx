@@ -3,7 +3,7 @@ import useFirestore from "../hooks/useFirestore";
 const ImageGallery = () => {
   const { docs: images, isLoading } = useFirestore("images");
   const { docs } = useFirestore("images");
-  console.log(docs)
+  console.log(docs);
 
   if (isLoading) {
     return (
@@ -18,17 +18,17 @@ const ImageGallery = () => {
   return (
     <div className="grid md:grid-cols-3 justify-center gap-5 mt-13 pt-10">
       {images.map((image) => (
-        
-        <div key={image.imageUrl} className="card card-compact w-full bg-base-100 shadow-xl">
-          
+        <div
+          key={image.ImageURL}
+          className="card card-compact w-full bg-base-100 shadow-xl"
+        >
           <figure className="max-h-[15rem]">
-            <img src={image.imageUrl} alt="PicDrop Upload"
-            />
+            <img src={image.ImageURL} alt="PicDrop Upload" />
           </figure>
           <div className="card-body">
             <h2 className="card-title">PicDrop</h2>
             <p>Uploaded by {image.userEmail} </p>
-            <p>URL {image.imageUrl} </p>
+            {/* <p>URL {image.ImageURL} </p> */}
             <span>Dropped on {image.createAt.toLocaleDateString()}</span>
           </div>
         </div>
