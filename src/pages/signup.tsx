@@ -37,7 +37,7 @@ const signup = () => {
         <div className="hero-content flex-col ">
           <div className="text-center lg:text-center">
             <h1 className="text-5xl font-bold">PicsDrop</h1>
-            <p className="py-6">SignUp to share your pictures</p>
+            <p className="py-6 font-bold text-xl mt-3">SignUp to share your pictures</p>
           </div>
           <div className="card sm:w-[30rem] shadow-2xl bg-base-100">
             <div className="card-body">

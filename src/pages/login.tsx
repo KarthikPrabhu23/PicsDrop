@@ -29,7 +29,7 @@ const login = () => {
         <div className="hero-content flex-col ">
           <div className="text-center lg:text-center">
             <h1 className="text-5xl font-bold">PicsDrop</h1>
-            <p className="py-6">Login to share your pictures</p>
+            <p className="py-6 font-bold mt-3 text-xl">Login to share your pictures</p>
           </div>
           <div className="card sm:w-[30rem] shadow-2xl bg-base-100">
             <div className="card-body">
@@ -41,7 +41,7 @@ const login = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="email"
+                  placeholder="Enter Email"
                   className="input input-bordered"
                   required
                 />
@@ -54,7 +54,7 @@ const login = () => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="password"
+                  placeholder="Enter your Password"
                   className="input input-bordered"
                   required
                 />
