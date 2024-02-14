@@ -1,25 +1,56 @@
-import { collection } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react'
+import { collection, onSnapshot, orderBy, query, setDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { db } from "../firebase/config";
 
-const useFirestore = (collectionName : string) => {
+type Image = {
+  createAt: Date;
+  userEmail: string;
+  imageUrl: string;
+};
 
-    const [docs, setDocs] = useState<Image[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true</boolean>;
+const useFirestore = (collectionName: string) => {
+  const [docs, setDocs] = useState<Image[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        const getData = async () => {
-            try{
+  useEffect(() => {
 
-            }
-            catch(error){
-                console.error(error);
-            }
-        }
+    let unsubscribe: () => void
 
-    }, [collectionName])
+    const getData = async () => {
+      try {
+
+        const q = query(
+          collection(db, collectionName),
+          orderBy("createAt", "desc")
+        );
+        unsubscribe = onSnapshot(q, (querySnapshot) => {
+          const images: Image[] = [];
+          querySnapshot.forEach((doc) => {
+            const imageUrl = doc.data().imageUrl;
+            const createAt = doc.data().createAt.toDate();
+            const userEmail = doc.data().userEmail;
+
+            images.push({imageUrl, createAt, userEmail})
+          });
+          console.log("Current images in CA: ", images.join(", "));
+
+          setDocs(images);
+          setIsLoading(false);
+        });
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
+    };
+
+    getData();
+
+    return () => unsubscribe && unsubscribe();
+  }, [collectionName]);
 
   return {
-    docs, isLoading;
+    docs,
+    isLoading,
   };
 };
 

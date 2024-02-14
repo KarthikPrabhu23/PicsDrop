@@ -12,10 +12,6 @@ const Home = () => {
       <Navbar />
       <UploadForm />
       <ImageGallery />
-      <ImageGallery />
-      <ImageGallery />
-      <ImageGallery />
-      <ImageGallery />
     </div>
   );
 };

@@ -1,19 +1,38 @@
+import useFirestore from "../hooks/useFirestore";
+
 const ImageGallery = () => {
+  const { docs: images, isLoading } = useFirestore("images");
+  const { docs } = useFirestore("images");
+  console.log(docs)
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-4 w-52 text-center mt-10">
+        <div className="skeleton h-32 w-full"></div>
+        <div className="skeleton h-4 w-28"></div>
+        <div className="skeleton h-4 w-full"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="grid md:grid-cols-3 justify-center gap-5 mt-13 pt-10">
-      <div className="card card-compact w-96 bg-base-100 shadow-xl">
-        <figure>
-          <img
-            src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-            alt="Shoes"
-          />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">PicDrop</h2>
-          <p>Uploaded by </p>
+      {images.map((image) => (
+        
+        <div key={image.imageUrl} className="card card-compact w-full bg-base-100 shadow-xl">
           
+          <figure className="max-h-[15rem]">
+            <img src={image.imageUrl} alt="PicDrop Upload"
+            />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">PicDrop</h2>
+            <p>Uploaded by {image.userEmail} </p>
+            <p>URL {image.imageUrl} </p>
+            <span>Dropped on {image.createAt.toLocaleDateString()}</span>
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 };
