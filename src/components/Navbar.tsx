@@ -33,7 +33,7 @@ const handleLogout = async () => {
           </button>
         </div>
         <div className="flex-1 justify-between">
-          <a className="btn btn-ghost text-xl">PicsDrop</a>
+          <a onClick={handleLogout} href="/signup" className="btn btn-ghost text-xl">PicsDrop</a>
           <a onClick={handleLogout}  className="btn btn-ghost text-l">Logout</a>
           
         </div>

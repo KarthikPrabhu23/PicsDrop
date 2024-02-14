@@ -11,6 +11,8 @@ const Home = () => {
     <div className="max-w-4xl mx-auto">
       <Navbar />
       <UploadForm />
+
+      <div className="divider divider-accent m-13"></div>
       <ImageGallery />
     </div>
   );

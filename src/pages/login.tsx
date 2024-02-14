@@ -1,43 +1,35 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../firebase/config";
 import { useNavigate } from "react-router-dom";
 
-const signup = () => {
+const login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
-  
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/');
-      
+      await signInWithEmailAndPassword(auth, email, password);
+
+      navigate("/");
     } catch (error) {
       setError(error.message);
     }
   };
 
-  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(e.target.value);
-    setPasswordsMatch(e.target.value === password);
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleLogin}>
       {error && error}
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col ">
           <div className="text-center lg:text-center">
             <h1 className="text-5xl font-bold">PicsDrop</h1>
-            <p className="py-6">SignUp to share your pictures</p>
+            <p className="py-6">Login to share your pictures</p>
           </div>
           <div className="card sm:w-[30rem] shadow-2xl bg-base-100">
             <div className="card-body">
@@ -49,7 +41,7 @@ const signup = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter Email"
+                  placeholder="email"
                   className="input input-bordered"
                   required
                 />
@@ -62,32 +54,18 @@ const signup = () => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter Password"
+                  placeholder="password"
                   className="input input-bordered"
                   required
                 />
-              </div>
-              <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Confirm Password</span>
-                </label>
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={handleConfirmPasswordChange}
-                  placeholder="Confirm Password"
-                  className="input input-bordered"
-                  required
-                />
-                {!passwordsMatch && <span style={{ color: 'red' }}>Passwords do not match</span>}
-                <label className="label">
-                  <a href="/login" className="label-text-alt link link-hover text-l">
-                    Already a user? Login here
+                  <a href="/signup" className="label-text-alt link link-hover text-l" >
+                    New user? SignUp here
                   </a>
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">SignUp</button>
+                <button className="btn btn-primary">Login</button>
               </div>
             </div>
           </div>
@@ -97,4 +75,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default login;

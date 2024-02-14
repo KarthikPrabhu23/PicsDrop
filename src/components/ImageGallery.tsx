@@ -6,17 +6,26 @@ const ImageGallery = () => {
   console.log(docs);
 
   if (isLoading) {
-    return (
-      <div className="flex flex-col gap-4 w-52 text-center mt-10">
-        <div className="skeleton h-32 w-full"></div>
-        <div className="skeleton h-4 w-28"></div>
-        <div className="skeleton h-4 w-full"></div>
-      </div>
-    );
+    const skeletons = [];
+    for (let i = 0; i < 5; i++) {
+      skeletons.push(
+        <div className="inline-flex p-5 m-10 text-center ">
+          <div
+            key={i}
+            className="flex flex-col m-3 p-5 gap-4 w-52 text-center mt-10"
+          >
+            <div className="skeleton h-32 w-full"></div>
+            <div className="skeleton h-4 w-28"></div>
+            <div className="skeleton h-4 w-full"></div>
+          </div>
+        </div>
+      );
+    }
+    return <div className="">{skeletons}</div>;
   }
 
   return (
-    <div className="grid md:grid-cols-3 justify-center gap-5 mt-13 pt-10">
+    <div className="grid md:grid-cols-3 justify-center gap-5 m-5 p-7">
       {images.map((image) => (
         <div
           key={image.ImageURL}
